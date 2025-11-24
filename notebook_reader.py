@@ -19,4 +19,25 @@ def extract_notebook(path):
         "code" : code_cells,
         "markdown" : markdown_cells
     }
-print(extract_notebook("early_stopping.ipynb"))
+# print(extract_notebook("early_stopping.ipynb"))
+
+
+def prepare_text_for_llm(content):
+    text = ""
+
+    text += "### CODE CELLS:\n"
+    for code in content["code"]:
+        text += code + "\n\n"
+
+    text += "### MARKDOWN CELLS:\n"
+    for md in content["markdown"]:
+        text += md + "\n\n"
+
+    return text
+
+
+extracted = extract_notebook("early_stopping.ipynb")
+new_text = prepare_text_for_llm(extracted)
+
+# print(new_text[:100])
+print(new_text[1600:])
